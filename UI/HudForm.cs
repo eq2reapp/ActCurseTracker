@@ -303,7 +303,7 @@ namespace ActCurseTracker.UI
 
         private void ResizeTimers()
         {
-            int newWidth = Math.Max(pnlTimers.ClientSize.Width - 10, 1);
+            int newWidth = Math.Max(pnlTimers.ClientSize.Width - 6, 1);
             foreach (var timer in _timers) {
                 timer.Width = newWidth;
             }
@@ -316,8 +316,6 @@ namespace ActCurseTracker.UI
             Settings.Current.PopupLastW = Width;
             Settings.Current.PopupLastH = Height;
             Settings.Current.Save();
-
-            _main.ShowHud();
         }
     }
 }
