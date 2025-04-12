@@ -1,6 +1,8 @@
 # Curse Tracker
 This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin keebs track of which healers in raid have curse cures on cooldown.
 
+![image](https://github.com/user-attachments/assets/883069f6-0515-4648-9542-2bead3effe59)
+
 ## Setup (recommended)
 1. Open ACT and select the `Plugins` tab
 2. Click the `Get Plugins...` button
