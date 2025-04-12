@@ -155,6 +155,11 @@ namespace ActCurseTracker.UI
             }
         }
 
+        private void HealerTimerStarted(HealerTimer obj)
+        {
+            SortTimers();
+        }
+
         private void HealerTimerDone(HealerTimer obj)
         {
             LoadHealerTimers();
@@ -260,6 +265,7 @@ namespace ActCurseTracker.UI
                     var existing = GetTimerForHealer(healer.Name);
                     if (existing == null) {
                         var timer = new HealerTimer(new Healer(healer));
+                        timer.TimerStarted += HealerTimerStarted;
                         timer.TimerDone += HealerTimerDone;
                         timer.TimerClicked += HealerTimerClicked;
                         addTimers.Add(timer);
@@ -285,20 +291,41 @@ namespace ActCurseTracker.UI
             });
 
             bool rebuild = removeTimers.Count > 0 || addTimers.Count > 0;
-            if (!rebuild) {
-                string newSequence = "";
-                foreach (var timer in _timers) {
-                    newSequence += timer.Healer.Name;
-                }
-                rebuild = newSequence != initialSequence;
+            SortTimers(rebuild);
+            ResizeTimers();
+        }
+
+        private void SortTimers(bool forceRebuild = false)
+        {
+            string initialSequence = "";
+            foreach (var timer in _timers) {
+                initialSequence += timer.Healer.Name;
             }
-            if (rebuild) {
+
+            _timers.Sort((x, y) => {
+                int cmp = -(x.Healer.Pinned ? 1 : -1).CompareTo(y.Healer.Pinned ? 1 : -1);
+                if (cmp == 0) {
+                    cmp = (x.Running ? 1 : -1).CompareTo(y.Running ? 1 : -1);
+                }
+                if (cmp == 0) {
+                    cmp = -x.Time.CompareTo(y.Time);
+                }
+                if (cmp == 0) {
+                    cmp = x.Healer.Name.CompareTo(y.Healer.Name);
+                }
+                return cmp;
+            });
+
+            string newSequence = "";
+            foreach (var timer in _timers) {
+                newSequence += timer.Healer.Name;
+            }
+            if (forceRebuild || newSequence != initialSequence) {
                 pnlTimers.Controls.Clear();
                 foreach (var timer in _timers) {
                     pnlTimers.Controls.Add(timer);
                 }
             }
-            ResizeTimers();
         }
 
         private void ResizeTimers()

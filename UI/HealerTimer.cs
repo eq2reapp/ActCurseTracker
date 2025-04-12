@@ -5,11 +5,18 @@ using System.Windows.Forms;
 using Advanced_Combat_Tracker;
 using ActCurseTracker.Model;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace ActCurseTracker.UI
 {
     public partial class HealerTimer : UserControl
     {
+        public event Action<HealerTimer> TimerStarted;
+        private void OnTimerStarted(HealerTimer timer)
+        {
+            if (TimerStarted != null) TimerStarted(this);
+        }
+
         public event Action<HealerTimer> TimerDone;
         private void OnTimerDone(HealerTimer timer)
         {
@@ -108,7 +115,12 @@ namespace ActCurseTracker.UI
 
         private void HealerTimer_Click(object sender, EventArgs e)
         {
-            OnTimerClicked(this);
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftAlt)) {
+                Restart();
+            }
+            else {
+                OnTimerClicked(this);
+            }
         }
 
         private void picProgress_SizeChanged(object sender, EventArgs e)
@@ -152,6 +164,8 @@ namespace ActCurseTracker.UI
             RepaintProgress();
 
             if (!_tickTimer.Enabled) _tickTimer.Start();
+
+            OnTimerStarted(this);
         }
 
         public void Stop()
