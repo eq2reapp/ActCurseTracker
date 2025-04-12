@@ -14,7 +14,7 @@ This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin k
 4. Follow the configuration instructions below
 
 ## Setup (manual)
-1. Download the latest version of the plugin [ActStatter.dll](https://github.com/eq2reapp/ActCurseTracker/blob/master/bin/Release/ActCurseTracker.dll?raw=true) to a location on your computer
+1. Download the latest version of the plugin [ActCurseTracker.dll](https://github.com/eq2reapp/ActCurseTracker/blob/master/bin/Release/ActCurseTracker.dll?raw=true) to a location on your computer
 2. Open ACT and select the `Plugins` tab
 3. Click `Browse...` and select the location where you saved the plugin
 4. Click `Add/Enable Plugin`
