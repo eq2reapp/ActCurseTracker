@@ -157,7 +157,7 @@ namespace ActCurseTracker.UI
 
         private void HealerTimerStarted(HealerTimer obj)
         {
-            SortTimers();
+            SortTimers(true);
         }
 
         private void HealerTimerDone(HealerTimer obj)

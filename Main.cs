@@ -15,7 +15,7 @@ namespace ActCurseTracker
 {
     public class Main : IActPluginV1
     {
-        public static int PLUGIN_ID = -1;
+        public static int PLUGIN_ID = 99;
         public const string PLUGIN_NAME = "Curse Tracker";
 
         public event Action<Cure> CureDetected;
@@ -102,6 +102,9 @@ namespace ActCurseTracker
                 ActGlobals.oFormActMain.OnLogLineRead -= oFormActMain_OnLogLineRead;
                 ActGlobals.oFormActMain.OnLogLineRead += oFormActMain_OnLogLineRead;
 
+                // Delay opening the popup until the main window is finished
+                ActGlobals.oFormActMain.ActLifecycleChanged += OFormActMain_ActLifecycleChanged;
+
                 // Update pattern for file download
                 // See: https://gist.github.com/EQAditu/4d6e3a1945fed2199f235fedc1e3ec56#Act_Plugin_Update.cs
                 ActGlobals.oFormActMain.UpdateCheckClicked += OFormActMain_UpdateCheckClicked;
@@ -112,10 +115,6 @@ namespace ActCurseTracker
                 ActGlobals.oFormActMain.CornerControlAdd(_btnShowCurseTracker);
             }
             catch { }
-
-            if (Settings.Current.AutoOpen) {
-                ShowHud();
-            }
 
             _pluginStatusText.Text = "Enabled";
         }
@@ -128,6 +127,7 @@ namespace ActCurseTracker
             ActGlobals.oFormActMain.CornerControlRemove(_btnShowCurseTracker);
 
             try {
+                ActGlobals.oFormActMain.ActLifecycleChanged -= OFormActMain_ActLifecycleChanged;
                 ActGlobals.oFormActMain.UpdateCheckClicked -= OFormActMain_UpdateCheckClicked;
                 ActGlobals.oFormActMain.OnLogLineRead -= oFormActMain_OnLogLineRead;
 
@@ -215,6 +215,12 @@ namespace ActCurseTracker
                 }
             }
             catch { } // Black hole...
+        }
+        private void OFormActMain_ActLifecycleChanged(ActLifecycleEventArgs args)
+        {
+            if (args.CurrentState == ActLifecycleEventArgs.ActLifecycleEnum.FormActMainShown && Settings.Current.AutoOpen) {
+                ShowHud();
+            }
         }
 
         public void OFormActMain_UpdateCheckClicked()
