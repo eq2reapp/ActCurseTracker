@@ -10,7 +10,7 @@ This [Advanced Combat Tracker (ACT)](http://advancedcombattracker.com/) plugin k
 ## Setup (recommended)
 1. Open ACT and select the `Plugins` tab
 2. Click the `Get Plugins...` button
-3. In the window that appears, select `[EQ2] Curse Tracker` and then click `Download and Enable`
+3. In the window that appears, select `(99) [EQ2] Curse Tracker` and then click `Download and Enable`
 4. Follow the configuration instructions below
 
 ## Setup (manual)
