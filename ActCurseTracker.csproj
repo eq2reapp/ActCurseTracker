@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Advanced Combat Tracker">
-      <HintPath>..\..\EQ2\ACT\Advanced Combat Tracker\Advanced Combat Tracker.exe</HintPath>
+      <HintPath>E:\EQ2\ACT\Advanced Combat Tracker\Advanced Combat Tracker.exe</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
