@@ -290,8 +290,8 @@ namespace ActCurseTracker.UI
                 return cmp;
             });
 
-            bool rebuild = removeTimers.Count > 0 || addTimers.Count > 0;
-            SortTimers(rebuild);
+            //bool rebuild = removeTimers.Count > 0 || addTimers.Count > 0;
+            SortTimers(true);
             ResizeTimers();
         }
 
